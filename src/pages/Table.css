@@ -1,0 +1,29 @@
+/* Table Styles */
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  border-radius: 8px; /* Rounded corners */
+  overflow: hidden;
+}
+
+.custom-table th,
+.custom-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.custom-table th {
+  background-color: #f4f4f4;
+}
+
+/* Status Colors */
+.running {
+  color: green;
+}
+
+.stopped,
+.exited {
+  color: red;
+}

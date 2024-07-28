@@ -1,0 +1,1 @@
+.logs {   padding: 20px;   background-color: #f9f9f9;   border: 1px solid #ddd;   border-radius: 5px;   margin: 20px; }  .logs h2 {   margin-top: 0; }  .logs pre {   background-color: #333;   color: white;   padding: 20px;   border-radius: 5px;   overflow-x: auto; }

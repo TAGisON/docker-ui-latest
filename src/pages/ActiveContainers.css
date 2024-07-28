@@ -1,0 +1,29 @@
+.container-list {
+  padding: 20px;
+}
+
+.container-types {
+  margin-bottom: 20px;
+}
+
+.card-container {
+  display: block;
+  width: 100%;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: calc(33.333% - 20px);
+}
+
+.card h3 {
+  margin-top: 0;
+}
+
+.card p {
+  margin: 5px 0;
+}

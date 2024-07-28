@@ -1,0 +1,15 @@
+.container-card {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.container-card h3 {
+  margin-top: 0;
+}
+
+.container-card p {
+  margin: 5px 0;
+}
