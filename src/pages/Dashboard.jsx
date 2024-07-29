@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Card from './Card';
-import './Dashboard.css';
+// import './Dashboard.css';
+import { FaDocker } from "react-icons/fa6";
+import { FaImage } from "react-icons/fa";
+import { FaNetworkWired } from "react-icons/fa6";
+import { GrStorage } from "react-icons/gr";
+
+
 
 const Dashboard = () => {
   const [containerCount, setContainerCount] = useState(0);
+  const [activeContainerCount, setActiveContainerCount] = useState(0);
+  const [stoppedContainerCount, setStoppedContainerCount] = useState(0);
   const [imageCount, setImageCount] = useState(0);
   const [networkCount, setNetworkCount] = useState(0);
   const [volumeCount, setVolumeCount] = useState(0);
@@ -14,6 +22,12 @@ const Dashboard = () => {
       try {
         const containerResponse = await axios.get('http://192.168.100.146:3230/api/container/fetch?status=all');
         setContainerCount(containerResponse.data.length);
+
+        const activeContainerResponse = await axios.get('http://192.168.100.146:3230/api/container/fetch?status=active');
+        setActiveContainerCount(activeContainerResponse.data.length);
+
+        const stoppedContainerResponse = await axios.get('http://192.168.100.146:3230/api/container/fetch?status=stopped');
+        setStoppedContainerCount(stoppedContainerResponse.data.length);
 
         const imageResponse = await axios.get('http://192.168.100.146:3230/api/image/fetch');
         setImageCount(imageResponse.data.length);
@@ -33,21 +47,33 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      <div>
-        <Card title="Containers">
-          <p>Number of Containers: {containerCount}</p>
+      <div className="card-container">
+        <Card
+        icon= {<FaDocker color='#1c28c9' />}
+        title="Containers"       
+        activeTitle ="Active"
+        stoppedTitle="Stopped"
+        active={activeContainerCount}
+        stopped={stoppedContainerCount}>
+          <p> {containerCount}</p>
         </Card>
-        <Card title="Images">
-          <p>Number of Images: {imageCount}</p>
+        <Card 
+        icon={<FaImage color='#1c28c9'/>}
+        title="Images">
+          <p> {imageCount}</p>
         </Card>
       </div>
       
-      <div>
-      <Card title="Networks">
-        <p>Number of Networks: {networkCount}</p>
+      <div className="card-container">
+      <Card 
+      icon={<FaNetworkWired color='#1c28c9'/>}
+      title="Networks">
+        <p> {networkCount} </p>
       </Card>
-      <Card title="Volumes">
-        <p>Number of Volumes: {volumeCount}</p>
+      <Card 
+      icon={<GrStorage color='#1c28c9' />     }
+      title="Volumes">
+        <p>{volumeCount}</p>
       </Card>
       </div>
     </div>

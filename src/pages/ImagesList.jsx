@@ -4,7 +4,7 @@ import Card from './Card';
 import Table from './Table';
 import RunButton from './image/RunButton';
 import DeleteButton from './image/DeleteButton';
-import './ImageList.css';
+// import './ImageList.css';
 
 const initialState = {
   images: [],

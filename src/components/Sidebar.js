@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SidebarData } from './SidebarData';
 import Img from '../images/logo.png'
-import './Sidebar.css';
+// import './Sidebar.css';
 
 const Sidebar = () => {
   const [subnav, setSubnav] = useState({});

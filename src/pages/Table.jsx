@@ -1,5 +1,5 @@
 import React from 'react';
-import './Table.css';
+// import './Table.css';
 
 const Table = ({ columns, data }) => {
   return (
@@ -15,7 +15,15 @@ const Table = ({ columns, data }) => {
         {data.map((row, index) => (
           <tr key={index}>
             {Object.keys(row).map((key, i) => (
-              <td key={i} className={key === 'Status' ? row[key].toLowerCase() : ''}>{row[key]}</td>
+              <td key={i}>
+                {key === 'Status' ? (
+                  <span className={row[key] === 'running' ? 'status-box active status-label' : row[key] === 'stopped' || row[key] === 'exited' ? 'status-box stopped status-label' : ''}>
+                    {row[key]}
+                  </span>
+                ) : (
+                  row[key]
+                )}
+              </td>
             ))}
           </tr>
         ))}

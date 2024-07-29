@@ -26,3 +26,245 @@
   font-size: 1.0rem;
 }
 
+/* SideBar Styling Starts*/
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background-color: #1e2125;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+}
+
+.sidebar-logo {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+.sidebar-logo img {
+  width: 100%;
+  height: auto;
+}
+
+svg {
+  padding-right: 10px;
+}
+
+.nav-menu {
+  width: 100%;
+  list-style: none;
+  padding-right: 30px;
+}
+
+.nav-menu-items {
+  list-style-type: none;
+  width: 100%;
+}
+
+.nav-menu-items li {
+  width: 100%;
+}
+
+.nav-menu-items li a {
+  display: flex;
+  align-items: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-decoration: none;
+  color: #e1e9fc;
+  font-size: 18px;
+}
+
+.nav-menu-items li a:hover {
+  background-color: #252831;
+  width: 70%;
+}
+
+.sub-nav-link {
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+  text-decoration: none;
+  color: #e1e9fc;
+  font-size: 16px;
+}
+
+.sub-nav-link:hover {
+  background-color: #252831;
+}
+
+/* Sidebar Styling Ends */
+
+
+/* Container Pages Stylings Starts*/
+
+.container-list {
+  padding: 20px;
+}
+
+.container-types {
+  margin-bottom: 20px;
+}
+
+.card-container {
+  display: block;
+  width: 100%;
+}
+
+/* Container Pages Styling ends */
+
+/* Dashboard.css */
+.dashboard {
+  display: flex;
+  gap: 20px;
+  height: 75vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard .card {
+  flex: 1 1 45%;
+  max-width: 45%;
+}
+.dashboard p{
+  padding-left: 30px;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+/* Card Styling  */
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  position: relative; /* Positioning for footer */
+}
+
+.card-content {
+  margin-top: 10px;
+}
+
+.card {
+  margin: 0;
+  font-size: 24px;
+}
+
+.card-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+
+.status-box {
+  border-radius: 4px;
+  padding: 5px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.status-label {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.status-value {
+  font-size: 16px;
+  color: #333;
+}
+
+.status-box.active .status-label {
+  background-color: green;
+  color: white;
+}
+
+.status-box.stopped .status-label {
+  background-color: red;
+  color: white;
+}
+
+.active {
+  width: 48px;
+  height: 19px;
+  color: greenyellow;
+}
+
+.stopped {
+  color: rgb(252, 59, 59);
+}
+
+
+
+/* Card Styling Ends */
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  border-radius: 8px; /* Rounded corners */
+  overflow: hidden;
+  font-size: 1rem;
+}
+
+.custom-table th,
+.custom-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.custom-table th {
+  background-color: #f4f4f4;
+}
+
+/* Status Colors */
+.status-box {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.status-label {
+  font-size: 12px;
+  color: white;
+}
+
+.status-box.active {
+  background-color: green;
+}
+
+.status-box.stopped,
+.status-box.exited {
+  background-color: red;
+}
+
+
+/* table syling ends */
+
+
+/* stats styling */
+.stats {
+  padding: 20px;
+}
+
+.stats-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+
