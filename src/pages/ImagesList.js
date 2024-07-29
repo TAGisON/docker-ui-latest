@@ -28,7 +28,7 @@ const ImageList = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:3230/api/image/list');
+        const response = await axios.get('http://192.168.100.146:3230/api/image/fetch');
         dispatch({ type: 'FETCH_SUCCESS', payload: response.data });
       } catch (error) {
         dispatch({ type: 'FETCH_ERROR', payload: error.message });
@@ -45,7 +45,7 @@ const ImageList = () => {
         const data = [{
           'IMAGE ID': image.ID.substring(0, 12),
           'REPOSITORY': image.Repository,
-          'TAG': image.Tag,
+          'TAG': image.Tag || 'latest', // Assuming tag could be missing and default to 'latest'
           'CREATED': image.CreatedSince,
           'SIZE': image.Size,
           'ACTIONS': (

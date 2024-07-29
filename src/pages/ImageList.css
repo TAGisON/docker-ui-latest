@@ -11,13 +11,14 @@
 }
 
 .container-card p {
-  margin: 5px 0;
+  margin: 5px;
 }
 
 .card {
+
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 20px;
-  width: 300px;
+  width: 90%;
   text-align: center;
 }

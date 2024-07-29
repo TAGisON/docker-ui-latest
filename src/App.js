@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
+import Dashboard from './pages/Dashboard';
 import AllContainers from './pages/AllContainers';
 import ActiveContainers from './pages/ActiveContainers';
 import StoppedContainers from './pages/StoppedContainers';
@@ -19,6 +20,7 @@ function App() {
             <div><h3>Edge Computing Platform</h3></div>
           </div>
           <Routes>
+            <Route path="/" element={<Dashboard />} />
             <Route path="/containers/all" element={<AllContainers />} />
             <Route path="/containers/active" element={<ActiveContainers />} />
             <Route path="/containers/stopped" element={<StoppedContainers />} />

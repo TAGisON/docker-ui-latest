@@ -30,7 +30,7 @@ export const ImageProvider = ({ children }) => {
 
   const fetchImages = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:3230/api/image/fetch`);
+      const response = await axios.get(`http://192.168.100.146:3230/api/image/fetch`);
       dispatch({ type: 'SET_IMAGES', payload: response.data });
     } catch (error) {
       console.error('Error fetching images:', error);
@@ -39,7 +39,7 @@ export const ImageProvider = ({ children }) => {
 
   const runImage = async (imageId) => {
     try {
-      await axios.get(`http://127.0.0.1:3230/api/image/command?image=${imageId}&command=run`);
+      await axios.get(`http://192.168.100.146:3230/api/image/command?image=${imageId}&command=run`);
       alert('Image run successfully');
     } catch (error) {
       console.error('Error running image:', error);
@@ -48,7 +48,7 @@ export const ImageProvider = ({ children }) => {
 
   const deleteImage = async (imageId) => {
     try {
-      await axios.get(`http://127.0.0.1:3230/api/image/command?image=${imageId}&command=rmi`);
+      await axios.get(`http://192.168.100.146:3230/api/image/command?image=${imageId}&command=rmi`);
       dispatch({ type: 'REMOVE_IMAGE', payload: imageId });
       alert('Image deleted successfully');
     } catch (error) {

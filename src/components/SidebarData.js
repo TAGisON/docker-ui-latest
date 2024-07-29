@@ -5,6 +5,11 @@ import * as IoIcons from 'react-icons/io';
 
 export const SidebarData = [
   {
+    title: 'Dashboard',
+    path: '/',
+    icon: <FaIcons.FaTachometerAlt color='#448EE4' />
+  },
+  {
     title: 'Containers',
     path: '#',
     icon: <FaIcons.FaDocker color='#448EE4' />,

@@ -9,7 +9,7 @@ const StopButton = ({ containerId }) => {
   const handleStop = async () => {
     setLoading(true);
     try {
-      await axios.get(`http://127.0.0.1:3230/api/container/command?container=${containerId}&command=stop`);
+      await axios.get(`http://192.168.100.146:3230/api/container/command?container=${containerId}&command=stop`);
       alert('Container stopped successfully');
     } catch (error) {
       console.error('Error stopping container:', error);

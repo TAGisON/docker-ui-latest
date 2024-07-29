@@ -1,0 +1,11 @@
+/* Dashboard.css */
+.dashboard {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .dashboard .card {
+    flex: 1 1 45%;
+    max-width: 45%;
+  }
+  

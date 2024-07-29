@@ -9,7 +9,7 @@ const DeleteButton = ({ containerId }) => {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      await axios.delete(`http://127.0.0.1:3230/api/container?container=${containerId}`);
+      await axios.delete(`http://192.168.100.146:3230/api/container?container=${containerId}`);
       alert('Container deleted successfully');
     } catch (error) {
       console.error('Error deleting container:', error);

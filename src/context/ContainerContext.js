@@ -25,7 +25,7 @@ export const ContainerProvider = ({ children }) => {
 
   const fetchContainers = async (status = 'all') => {
     try {
-      const response = await axios.get(`http://127.0.0.1:3230/api/container/fetch?status=${status}`);
+      const response = await axios.get(`http://192.168.100.146:3230/api/container/fetch?status=${status}`);
       dispatch({ type: 'SET_CONTAINERS', payload: response.data });
     } catch (error) {
       console.error('Error fetching containers:', error);
@@ -34,8 +34,8 @@ export const ContainerProvider = ({ children }) => {
 
   const updateContainerState = async (containerId, command) => {
     try {
-      await axios.get(`http://127.0.0.1:3230/api/container/command?container=${containerId}&command=${command}`);
-      const response = await axios.get(`http://127.0.0.1:3230/api/container/fetchById?container=${containerId}`);
+      await axios.get(`http://192.168.100.146:3230/api/container/command?container=${containerId}&command=${command}`);
+      const response = await axios.get(`http://192.168.100.146:3230/api/container/fetchById?container=${containerId}`);
       dispatch({ type: 'UPDATE_CONTAINER', payload: response.data });
     } catch (error) {
       console.error(`Error updating container state:`, error);

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://127.0.0.1:3230/api'; // Update with your backend URL
+const API_URL = 'http://192.168.100.146:3230/api'; // Update with your backend URL
 
 const getContainers = (status) => {
   return axios.get(`${API_URL}/container/fetch?status=${status}`);

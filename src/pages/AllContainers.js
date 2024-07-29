@@ -12,7 +12,7 @@ const AllContainers = () => {
   useEffect(() => {
     const fetchContainers = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:3230/api/container/fetch?status=${status}`);
+        const response = await axios.get(`http://192.168.100.146:3230/api/container/fetch?status=${status}`);
         setContainers(response.data);
       } catch (error) {
         console.error('Error fetching containers:', error);
@@ -24,8 +24,8 @@ const AllContainers = () => {
   const handleToggle = async (containerId, currentState) => {
     const command = currentState ? 'stop' : 'start';
     try {
-      await axios.get(`http://127.0.0.1:3230/api/container/command?container=${containerId}&command=${command}`);
-      const response = await axios.get(`http://127.0.0.1:3230/api/container/fetch?status=${status}`);
+      await axios.get(`http://192.168.100.146:3230/api/container/command?container=${containerId}&command=${command}`);
+      const response = await axios.get(`http://192.168.100.146:3230/api/container/fetch?status=${status}`);
       setContainers(response.data);
     } catch (error) {
       console.error(`Error ${command}ing container:`, error);

@@ -8,7 +8,7 @@ const Stats = () => {
   const [stats, setStats] = useState([]);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:3230/api/container/stats')
+    axios.get('http://192.168.100.146:3230/api/container/stats')
       .then(response => setStats(response.data))
       .catch(error => console.error('Error fetching stats:', error));
   }, []);

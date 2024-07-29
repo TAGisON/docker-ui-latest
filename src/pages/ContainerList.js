@@ -9,7 +9,7 @@ const ContainerList = () => {
   useEffect(() => {
     const fetchContainers = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:3230/api/container/fetch?status=${status}`);
+        const response = await axios.get(`http://192.168.100.146:3230/api/container/fetch?status=${status}`);
         setContainers(response.data);
       } catch (error) {
         console.error('Error fetching containers:', error);
