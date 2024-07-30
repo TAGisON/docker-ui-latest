@@ -1,15 +1,16 @@
-// src/pages/Container/RestartButton/RestartButton.js
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import axios from 'axios';
+import IconButton from '@mui/material/IconButton';
+import RestartIcon from '@mui/icons-material/RestartAlt';
+import { useContainerContext } from '../../context/ContainerContext';
 
 const RestartButton = ({ containerId }) => {
+  const { updateContainerState } = useContainerContext();
   const [loading, setLoading] = useState(false);
 
   const handleRestart = async () => {
     setLoading(true);
     try {
-      await axios.get(`http://192.168.100.146:3230/api/container/command?container=${containerId}&command=restart`);
+      await updateContainerState(containerId, 'restart');
       alert('Container restarted successfully');
     } catch (error) {
       console.error('Error restarting container:', error);
@@ -19,9 +20,9 @@ const RestartButton = ({ containerId }) => {
   };
 
   return (
-    <Button variant="contained" color="primary" onClick={handleRestart} disabled={loading}>
-      {loading ? 'Restarting...' : 'Restart'}
-    </Button>
+    <IconButton onClick={handleRestart} disabled={loading}>
+      <RestartIcon color={loading ? "disabled" : "primary"} />
+    </IconButton>
   );
 };
 

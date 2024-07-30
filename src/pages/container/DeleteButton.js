@@ -1,15 +1,16 @@
-// src/pages/Container/DeleteButton.js
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import axios from 'axios';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useContainerContext } from '../../context/ContainerContext';
 
 const DeleteButton = ({ containerId }) => {
+  const { updateContainerState } = useContainerContext();
   const [loading, setLoading] = useState(false);
 
   const handleDelete = async () => {
     setLoading(true);
     try {
-      await axios.delete(`http://192.168.100.146:3230/api/container?container=${containerId}`);
+      await updateContainerState(containerId, 'delete');
       alert('Container deleted successfully');
     } catch (error) {
       console.error('Error deleting container:', error);
@@ -19,9 +20,9 @@ const DeleteButton = ({ containerId }) => {
   };
 
   return (
-    <Button variant="contained" color="secondary" onClick={handleDelete} disabled={loading}>
-      {loading ? 'Deleting...' : 'Delete'}
-    </Button>
+    <IconButton onClick={handleDelete} disabled={loading}>
+      <DeleteIcon color={loading ? "disabled" : "error"} />
+    </IconButton>
   );
 };
 

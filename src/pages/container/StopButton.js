@@ -1,15 +1,16 @@
-// src/pages/Container/StopButton/StopButton.js
 import React, { useState } from 'react';
-import Button from '@mui/material/Button';
-import axios from 'axios';
+import IconButton from '@mui/material/IconButton';
+import StopIcon from '@mui/icons-material/Stop';
+import { useContainerContext } from '../../context/ContainerContext';
 
 const StopButton = ({ containerId }) => {
+  const { updateContainerState } = useContainerContext();
   const [loading, setLoading] = useState(false);
 
   const handleStop = async () => {
     setLoading(true);
     try {
-      await axios.get(`http://192.168.100.146:3230/api/container/command?container=${containerId}&command=stop`);
+      await updateContainerState(containerId, 'stop');
       alert('Container stopped successfully');
     } catch (error) {
       console.error('Error stopping container:', error);
@@ -19,9 +20,9 @@ const StopButton = ({ containerId }) => {
   };
 
   return (
-    <Button variant="contained" color="secondary" onClick={handleStop} disabled={loading}>
-      {loading ? 'Stopping...' : 'Stop'}
-    </Button>
+    <IconButton onClick={handleStop} disabled={loading}>
+      <StopIcon color={loading ? "disabled" : "error"} />
+    </IconButton>
   );
 };
 

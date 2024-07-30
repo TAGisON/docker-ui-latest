@@ -1,42 +1,36 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useContainerContext } from '../context/ContainerContext';
 import Card from './Card';
 import Table from './Table';
 import RestartButton from './container/RestartButton';
 import DeleteButton from './container/DeleteButton';
+import Status from './container/Status';
+import StopStartButton from './container/StopStartButton';
 
 const AllContainers = () => {
-  const [containers, setContainers] = useState([]);
-  const [status, setStatus] = useState('all');
+  const { state, fetchContainers } = useContainerContext();
 
   useEffect(() => {
-    const fetchContainers = async () => {
-      try {
-        const response = await axios.get(`http://192.168.100.146:3230/api/container/fetch?status=${status}`);
-        setContainers(response.data);
-      } catch (error) {
-        console.error('Error fetching containers:', error);
-      }
-    };
     fetchContainers();
-  }, [status]);
+  }, []);
 
   const columns = ['Name', 'Container ID', 'Created', 'Status', 'Actions'];
 
   return (
-    <div className="card-container">
-      {containers.map(container => {
+    <div className="card-container container">
+      {state.containers.map(container => {
         const data = [{
           'Name': container.Name,
           'Container ID': container.Id.substring(0, 12),
           'Created': new Date(container.Created).toLocaleString(),
-          'Status': container.State.Status,
+          'Status': (<Status containerId={container.Id} />),
           'Actions': (
             <>
               <RestartButton containerId={container.Id} />
+              <StopStartButton containerId={container.Id} />
               <DeleteButton containerId={container.Id} />
             </>
-          )// Placeholder for future actions
+          )
         }];
 
         return (

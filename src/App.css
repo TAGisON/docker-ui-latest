@@ -117,6 +117,11 @@ svg {
   width: 100%;
 }
 
+.container span{
+  text-align: center;
+  font-size: 1.0rem
+}
+
 /* Container Pages Styling ends */
 
 /* Dashboard.css */
@@ -211,6 +216,8 @@ svg {
 
 /* Card Styling Ends */
 
+/* Table Styling Starts */
+
 .custom-table {
   width: 100%;
   border-collapse: collapse;
@@ -218,6 +225,7 @@ svg {
   border-radius: 8px; /* Rounded corners */
   overflow: hidden;
   font-size: 1rem;
+  table-layout: fixed; /* Fix table layout */
 }
 
 .custom-table th,
@@ -225,11 +233,15 @@ svg {
   border: 1px solid #ccc;
   padding: 10px;
   text-align: left;
+  width: 3px;
 }
 
 .custom-table th {
-  background-color: #f4f4f4;
+  color: white;
+  background-color: black;
 }
+
+/* Table Styling Ends */
 
 /* Status Colors */
 .status-box {
@@ -266,5 +278,26 @@ svg {
   flex-wrap: wrap;
   gap: 20px;
 }
+
+/* Start Stop Button Style */
+
+.stop-start-button {
+  position: relative;
+}
+
+.loading-spinner {
+  border: 2px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 2px solid #3498db;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 
 

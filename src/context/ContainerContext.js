@@ -1,4 +1,3 @@
-// src/context/ContainerContext.js
 import React, { createContext, useReducer, useContext } from 'react';
 import axios from 'axios';
 
@@ -35,8 +34,12 @@ export const ContainerProvider = ({ children }) => {
   const updateContainerState = async (containerId, command) => {
     try {
       await axios.get(`http://192.168.100.146:3230/api/container/command?container=${containerId}&command=${command}`);
-      const response = await axios.get(`http://192.168.100.146:3230/api/container/fetchById?container=${containerId}`);
-      dispatch({ type: 'UPDATE_CONTAINER', payload: response.data });
+      if (command === 'delete') {
+        dispatch({ type: 'SET_CONTAINERS', payload: state.containers.filter(container => container.Id !== containerId) });
+      } else {
+        const response = await axios.get(`http://192.168.100.146:3230/api/container/fetchById?container=${containerId}`);
+        dispatch({ type: 'UPDATE_CONTAINER', payload: response.data });
+      }
     } catch (error) {
       console.error(`Error updating container state:`, error);
     }

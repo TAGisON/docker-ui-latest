@@ -21,7 +21,7 @@ const StoppedContainers = () => {
   const columns = ['Name', 'Container ID', 'Created', 'Status'];
 
   return (
-    <div className="card-container">
+    <div className="card-container container">
       {containers.map(container => {
         const data = [{
           'Name': container.Name,
