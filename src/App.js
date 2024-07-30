@@ -5,9 +5,13 @@ import Dashboard from './pages/Dashboard';
 import AllContainers from './pages/AllContainers';
 import ActiveContainers from './pages/ActiveContainers';
 import StoppedContainers from './pages/StoppedContainers';
-import Images from './pages/ImagesList';
+import Images from './pages/ActiveImages.jsx';
 import Stats from './pages/Stats';
+import ActiveImages from './pages/ActiveImages';
+import SystemImages from './pages/SystemImages';
+import Export from './pages/Export';
 import './App.css';
+import ImportPage from './pages/ImportPage.jsx';
 
 function App() {
   return (
@@ -25,6 +29,10 @@ function App() {
             <Route path="/containers/active" element={<ActiveContainers />} />
             <Route path="/containers/stopped" element={<StoppedContainers />} />
             <Route path="/images" element={<Images />} />
+            <Route path="/images/active" element={<ActiveImages />} />
+            <Route path="/images/system" element={<SystemImages />} />
+            <Route path="/images/import" element={<ImportPage />} />
+            <Route path="/images/export" element={<Export />} />
             <Route path="/stats" element={<Stats />} />
           </Routes>
         </div>

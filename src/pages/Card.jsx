@@ -10,14 +10,12 @@ const Card = ({ title, children, activeTitle, stoppedTitle, active, stopped }) =
       <div className="card-footer">
         {active !== undefined && (
           <div className="status-box active status-label">
-            <span>{activeTitle}</span>
-            <span>{active}</span>
+            <span>{activeTitle} : {active}</span>
           </div>
         )}
         {stopped !== undefined && (
           <div className="status-box stopped status-label">
-            <span>{stoppedTitle}</span>
-            <span>{stopped}</span>
+            <span>{stoppedTitle} : {stopped}</span>
           </div>
         )}
       </div>

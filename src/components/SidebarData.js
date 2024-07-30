@@ -35,8 +35,32 @@ export const SidebarData = [
   },
   {
     title: 'Images',
-    path: '/images',
-    icon: <FaIcons.FaImage color='#448EE4' />
+    path: '#',
+    icon: <FaIcons.FaImage color='#448EE4' />,
+    iconClosed: <AiIcons.AiOutlineDown />,
+    iconOpened: <AiIcons.AiOutlineUp />,
+    subNav: [
+      {
+        title: 'Active Images',
+        path: '/images/active',
+        icon: <IoIcons.IoMdPlay color='#448EE4' />
+      },
+      {
+        title: 'System Images',
+        path: '/images/system',
+        icon: <IoIcons.IoMdAlbums color='#448EE4' />
+      },
+      {
+        title: 'Import',
+        path: '/images/import',
+        icon: <IoIcons.IoMdCloudUpload color='#448EE4' />
+      },
+      {
+        title: 'Export',
+        path: '/images/export',
+        icon: <IoIcons.IoMdCloudDownload color='#448EE4' />
+      }
+    ]
   },
   {
     title: 'Stats',

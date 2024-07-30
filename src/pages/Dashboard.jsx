@@ -55,7 +55,7 @@ const Dashboard = () => {
         stoppedTitle="Stopped"
         active={activeContainerCount}
         stopped={stoppedContainerCount}>
-          <p> : {containerCount}</p>
+          <p> {containerCount}</p>
         </Card>
         <Card 
         icon={<FaImage color='#1c28c9'/>}

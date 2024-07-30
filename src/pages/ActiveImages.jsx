@@ -1,10 +1,11 @@
 import React, { useEffect, useReducer } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import Card from './Card';
 import Table from './Table';
 import RunButton from './image/RunButton';
 import DeleteButton from './image/DeleteButton';
-// import './ImageList.css';
+// import './ActiveImages.css';
 
 const initialState = {
   images: [],
@@ -22,7 +23,7 @@ const reducer = (state, action) => {
   }
 };
 
-const ImageList = () => {
+const ActiveImages = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
@@ -41,29 +42,35 @@ const ImageList = () => {
 
   return (
     <div className="card-container">
-      {state.images.map(image => {
-        const data = [{
-          'IMAGE ID': image.ID.substring(0, 12),
-          'REPOSITORY': image.Repository,
-          'TAG': image.Tag || 'latest', // Assuming tag could be missing and default to 'latest'
-          'CREATED': image.CreatedSince,
-          'SIZE': image.Size,
-          'ACTIONS': (
-            <>
-              <RunButton imageId={image.ID} />
-              <DeleteButton imageId={image.ID} />
-            </>
-          )
-        }];
+      {state.images.length > 0 ? (
+        state.images.map(image => {
+          const data = [{
+            'IMAGE ID': image.ID.substring(0, 12),
+            'REPOSITORY': image.Repository,
+            'TAG': image.Tag || 'latest', // Assuming tag could be missing and default to 'latest'
+            'CREATED': image.CreatedSince,
+            'SIZE': image.Size,
+            'ACTIONS': (
+              <>
+                <RunButton imageId={image.ID} />
+                <DeleteButton imageId={image.ID} />
+              </>
+            )
+          }];
 
-        return (
-          <Card title={image.Repository} key={image.ID}>
-            <Table columns={columns} data={data} />
-          </Card>
-        );
-      })}
+          return (
+            <Card title={image.Repository} key={image.ID}>
+              <Table columns={columns} data={data} />
+            </Card>
+          );
+        })
+      ) : (
+        <div className="no-images-message">
+          <p>Currently there are no active images in the system. Kindly <Link to="/images/import">import</Link>.</p>
+        </div>
+      )}
     </div>
   );
 };
 
-export default ImageList;
+export default ActiveImages;

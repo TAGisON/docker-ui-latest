@@ -35,9 +35,9 @@ const StopStartButton = ({ containerId }) => {
       {loading ? (
         <div className="loading-spinner"></div>
       ) : isRunning ? (
-        <StopIcon color="error" />
+        <StopIcon color="warning" />
       ) : (
-        <PlayArrowIcon color="primary" />
+        <PlayArrowIcon color='success' />
       )}
     </IconButton>
   );
