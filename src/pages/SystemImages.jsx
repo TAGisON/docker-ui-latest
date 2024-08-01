@@ -39,7 +39,7 @@ const SystemImages = () => {
         ))
       ) : (
         <div className="no-images-message">
-          No system images found <DeployButton></DeployButton>
+          No system images found
           </div>
       )}
       {error && <div className="error-message">{error}</div>}
