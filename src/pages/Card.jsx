@@ -1,9 +1,12 @@
 import React from 'react';
 
-const Card = ({ title, children, activeTitle, stoppedTitle, active, stopped }) => {
+const Card = ({ icon, title, children, activeTitle, stoppedTitle, active, stopped }) => {
   return (
     <div className="card">
-      <h3>{title}</h3>
+      <div style={{display:"flex"}}>
+        <h3 style={{fontSize:"40px"}}>{icon}</h3>
+        <h3 style={{fontSize:"2rem"}}>{title}</h3>
+      </div>
       <div className="card-content">
         {children}
       </div>

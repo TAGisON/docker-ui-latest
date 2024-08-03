@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Card from './Card';
-import DeployButton from './image/DeployButton';
+import ImportButton from './image/ImportButton';
 // import './SystemImages.css';
 
 const SystemImages = () => {
@@ -11,11 +11,10 @@ const SystemImages = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get('http://192.168.100.146:3230/api/system-images'); // Placeholder for API
+        const response = await axios.get('http://192.168.100.146:3230/api/system-images');
         setImages(response.data);
       } catch (error) {
         if (error.response && error.response.status === 404) {
-          // No images found, do nothing
           setImages([]);
         } else {
           setError('Error fetching system images: ' + error.message);
@@ -32,15 +31,14 @@ const SystemImages = () => {
         images.map(image => (
           <Card title={image.name} key={image.id}>
             <div className="image-details">
-              <p>{image.path}</p>
-              <DeployButton imageName={image.name} />
+              <ImportButton imageName={image.name} imagePath={image.path}/>
             </div>
           </Card>
         ))
       ) : (
         <div className="no-images-message">
           No system images found
-          </div>
+        </div>
       )}
       {error && <div className="error-message">{error}</div>}
     </div>

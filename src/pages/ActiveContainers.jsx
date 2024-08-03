@@ -22,20 +22,26 @@ const ActiveContainers = () => {
 
   return (
     <div className="card-container container">
-      {containers.map(container => {
-        const data = [{
-          'Name': container.Name,
-          'Container ID': container.Id.substring(0, 12),
-          'Created': new Date(container.Created).toLocaleString(),
-          'Status': container.State.Status,
-        }];
+      {containers.length > 0 ? (
+        containers.map(container => {
+          const data = [{
+            'Name': container.Name,
+            'Container ID': container.Id.substring(0, 12),
+            'Created': new Date(container.Created).toLocaleString(),
+            'Status': container.State.Status,
+          }];
 
-        return (
-          <Card key={container.Id}>
-            <Table columns={columns} data={data} />
-          </Card>
-        );
-      })}
+          return (
+            <Card key={container.Id}>
+              <Table columns={columns} data={data} />
+            </Card>
+          );
+        })
+      ) : (
+        <div className="no-images-message">
+          <p>There are no running containers.</p>
+        </div>
+      )}
     </div>
   );
 };

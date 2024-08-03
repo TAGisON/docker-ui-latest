@@ -32,10 +32,10 @@ const Dashboard = () => {
         const imageResponse = await axios.get('http://192.168.100.146:3230/api/image/fetch');
         setImageCount(imageResponse.data.length);
 
-        const networkResponse = await axios.get('http://192.168.100.146:3230/api/network/list');
+        const networkResponse = await axios.get('http://192.168.100.146:3230/api/networks');
         setNetworkCount(networkResponse.data.length);
 
-        const volumeResponse = await axios.get('http://192.168.100.146:3230/api/volume/list');
+        const volumeResponse = await axios.get('http://192.168.100.146:3230/api/volumes');
         setVolumeCount(volumeResponse.data.length);
       } catch (error) {
         console.error('Error fetching data:', error);

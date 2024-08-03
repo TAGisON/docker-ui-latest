@@ -1,42 +1,18 @@
-import React, { useEffect, useReducer } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useImageContext } from '../context/ImageContext';
 import Card from './Card';
 import Table from './Table';
-import RunButton from './image/RunButton';
 import DeleteButton from './image/DeleteButton';
+import DeployButton from './image/DeployButton';
 // import './ActiveImages.css';
 
-const initialState = {
-  images: [],
-  error: null,
-};
-
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'FETCH_SUCCESS':
-      return { ...state, images: action.payload };
-    case 'FETCH_ERROR':
-      return { ...state, error: action.payload };
-    default:
-      return state;
-  }
-};
-
 const ActiveImages = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const { state, fetchImages } = useImageContext();
 
   useEffect(() => {
-    const fetchImages = async () => {
-      try {
-        const response = await axios.get('http://192.168.100.146:3230/api/image/fetch');
-        dispatch({ type: 'FETCH_SUCCESS', payload: response.data });
-      } catch (error) {
-        dispatch({ type: 'FETCH_ERROR', payload: error.message });
-      }
-    };
     fetchImages();
-  }, []);
+  }, [fetchImages]);
 
   const columns = ['IMAGE ID', 'REPOSITORY', 'TAG', 'CREATED', 'SIZE', 'ACTIONS'];
 
@@ -52,8 +28,12 @@ const ActiveImages = () => {
             'SIZE': image.Size,
             'ACTIONS': (
               <>
-                <RunButton imageId={image.ID} />
-                <DeleteButton imageId={image.ID} />
+                <DeployButton imageName={image.Repository} key={image.Id} Tag={image.Tag} />
+                <DeleteButton
+                  imageId={image.ID}
+                  imageName={image.Repository}
+                  onDeleteSuccess={fetchImages}
+                />
               </>
             )
           }];

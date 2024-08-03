@@ -233,14 +233,13 @@ svg {
 /* Card Styling Ends */
 
 /* Table Styling Starts */
-
 .custom-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
   border-radius: 8px; /* Rounded corners */
   overflow: hidden;
-  font-size: 1rem;
+  font-size: .75rem;
   table-layout: fixed; /* Fix table layout */
 }
 
@@ -249,9 +248,11 @@ svg {
   color: black;
   background-color: whitesmoke;
   border: 1px solid #ccc;
-  padding: 5px;
+  padding: 8px; /* Increased padding for better readability */
   text-align: left;
-  width: 3px;
+  overflow: hidden; /* Hide overflowed content */
+  text-overflow: ellipsis; /* Show ellipsis for overflowing text */
+  white-space: nowrap; /* Prevent text from wrapping */
 }
 
 .custom-table th {
@@ -259,6 +260,9 @@ svg {
   background-color: black;
 }
 
+.custom-table td {
+  word-wrap: break-word; /* Allow breaking long words */
+}
 /* Table Styling Ends */
 
 /* Status Colors */
@@ -394,3 +398,19 @@ button:hover, .browse-files:hover {
   color: red;
 }
 
+
+/* Fullscreen Loader */
+.fullscreen-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 9999;
+  font-size: 1.5rem;
+}

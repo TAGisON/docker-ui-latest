@@ -27,7 +27,7 @@ const Stats = () => {
     fetchStats();
   }, []);
 
-  const columns = ['Metric', 'CPU Usage', 'Memory Usage', 'Network I/O'];
+  const columns = ['Name','Metric', 'CPU Usage', 'Memory Usage', 'Network I/O'];
 
   return (
     <div className="stats">
@@ -36,6 +36,7 @@ const Stats = () => {
         {stats.map((stat, index) => {
           const data = [
             {
+              'NAME' : containerNames[stat.id],
               'Metric': 'Value',
               'CPU Usage': stat.cpu_percentage,
               'Memory Usage': stat.memory_usage,

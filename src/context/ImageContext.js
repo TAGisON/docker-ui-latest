@@ -1,4 +1,3 @@
-// src/context/ImageContext.js
 import React, { createContext, useReducer, useContext } from 'react';
 import axios from 'axios';
 
@@ -30,7 +29,7 @@ export const ImageProvider = ({ children }) => {
 
   const fetchImages = async () => {
     try {
-      const response = await axios.get(`http://192.168.100.146:3230/api/image/fetch`);
+      const response = await axios.get('http://192.168.100.146:3230/api/image/fetch');
       dispatch({ type: 'SET_IMAGES', payload: response.data });
     } catch (error) {
       console.error('Error fetching images:', error);
@@ -48,7 +47,7 @@ export const ImageProvider = ({ children }) => {
 
   const deleteImage = async (imageId) => {
     try {
-      await axios.get(`http://192.168.100.146:3230/api/image/command?image=${imageId}&command=rmi`);
+      await axios.delete(`http://192.168.100.146:3230/api/image/${imageId}`);
       dispatch({ type: 'REMOVE_IMAGE', payload: imageId });
       alert('Image deleted successfully');
     } catch (error) {
