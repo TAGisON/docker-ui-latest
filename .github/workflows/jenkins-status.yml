@@ -18,11 +18,20 @@ jobs:
           TOKEN="${{ secrets.JENKINS_API_TOKEN }}"
 
           # Get the job status from Jenkins
-          STATUS=$(curl -s -u $USERNAME:$TOKEN $JENKINS_URL/job/$JOB_NAME/lastBuild/api/json | jq -r '.result')
+          RESPONSE=$(curl -s -u $USERNAME:$TOKEN $JENKINS_URL/job/$JOB_NAME/lastBuild/api/json)
+          
+          # Print the raw Jenkins API response for debugging
+          echo "Raw Jenkins API Response: $RESPONSE"
+
+          # Parse the job status using jq
+          STATUS=$(echo "$RESPONSE" | jq -r '.result' || echo "ERROR")
 
           if [ "$STATUS" == "null" ]; then
             echo "Job is running or has never been built."
             STATUS="RUNNING"
+          elif [ "$STATUS" == "ERROR" ]; then
+            echo "Error parsing the Jenkins API response. Please check the raw response above."
+            exit 1
           fi
 
           echo "Job Status: $STATUS"
@@ -39,8 +48,10 @@ jobs:
             COLOR="red"
           elif [ "${{ steps.jenkins-status.outputs.status }}" == "UNSTABLE" ]; then
             COLOR="yellow"
-          else
+          elif [ "${{ steps.jenkins-status.outputs.status }}" == "RUNNING" ]; then
             COLOR="blue"
+          else
+            COLOR="lightgrey"
           fi
 
           # Update STATUS.md with the job status badge
