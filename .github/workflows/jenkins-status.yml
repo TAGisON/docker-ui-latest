@@ -17,8 +17,11 @@ jobs:
           USERNAME="${{ secrets.JENKINS_USER }}"
           TOKEN="${{ secrets.JENKINS_API_TOKEN }}"
 
+          # Fetch the Jenkins Crumb
+          CRUMB=$(curl -s -u $USERNAME:$TOKEN "$JENKINS_URL/crumbIssuer/api/json" | jq -r '.crumb')
+
           # Get the job status from Jenkins
-          RESPONSE=$(curl -s -u $USERNAME:$TOKEN $JENKINS_URL/job/$JOB_NAME/lastBuild/api/json)
+          RESPONSE=$(curl -s -u $USERNAME:$TOKEN -H "Jenkins-Crumb:$CRUMB" "$JENKINS_URL/job/$JOB_NAME/lastBuild/api/json")
           
           # Print the raw Jenkins API response for debugging
           echo "Raw Jenkins API Response: $RESPONSE"
