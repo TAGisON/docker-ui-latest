@@ -17,51 +17,34 @@ jobs:
           USERNAME="${{ secrets.JENKINS_USER }}"
           TOKEN="${{ secrets.JENKINS_API_TOKEN }}"
 
-          # Fetch the Jenkins Crumb
-          CRUMB=$(curl -s -u $USERNAME:$TOKEN "$JENKINS_URL/crumbIssuer/api/json" | jq -r '.crumb')
-          
-          # Print the crumb for debugging
-          echo "Jenkins Crumb: $CRUMB"
-
           # Get the job status from Jenkins
-          RESPONSE=$(curl -s -u $USERNAME:$TOKEN -H "Jenkins-Crumb:$CRUMB" "$JENKINS_URL/job/$JOB_NAME/lastBuild/api/json")
-          
-          # Print the raw Jenkins API response for debugging
-          echo "Raw Jenkins API Response: $RESPONSE"
-
-          # Parse the job status using jq
-          STATUS=$(echo "$RESPONSE" | jq -r '.result' || echo "ERROR")
+          STATUS=$(curl -s -u $USERNAME:$TOKEN $JENKINS_URL/job/$JOB_NAME/lastBuild/api/json | jq -r '.result')
 
           if [ "$STATUS" == "null" ]; then
             echo "Job is running or has never been built."
             STATUS="RUNNING"
-          elif [ "$STATUS" == "ERROR" ]; then
-            echo "Error parsing the Jenkins API response. Please check the raw response above."
-            exit 1
           fi
 
           echo "Job Status: $STATUS"
 
           # Set the job status as an output
-          echo "status=$STATUS" >> $GITHUB_ENV
+          echo "::set-output name=status::$STATUS"
 
       - name: Update STATUS.md with Job Status
         run: |
           # Define badge color based on job status
-          if [ "$status" == "SUCCESS" ]; then
+          if [ "${{ steps.jenkins-status.outputs.status }}" == "SUCCESS" ]; then
             COLOR="green"
-          elif [ "$status" == "FAILURE" ]; then
+          elif [ "${{ steps.jenkins-status.outputs.status }}" == "FAILURE" ]; then
             COLOR="red"
-          elif [ "$status" == "UNSTABLE" ]; then
+          elif [ "${{ steps.jenkins-status.outputs.status }}" == "UNSTABLE" ]; then
             COLOR="yellow"
-          elif [ "$status" == "RUNNING" ]; then
-            COLOR="blue"
           else
-            COLOR="lightgrey"
+            COLOR="blue"
           fi
 
           # Update STATUS.md with the job status badge
-          echo "![Jenkins Job Status](https://img.shields.io/badge/Jenkins-$status-$COLOR?style=flat-square)" > STATUS.md
+          echo "![Jenkins Job Status](https://img.shields.io/badge/Jenkins-${{ steps.jenkins-status.outputs.status }}-$COLOR?style=flat-square)" > STATUS.md
 
       - name: Commit changes
         run: |
