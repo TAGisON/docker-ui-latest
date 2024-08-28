@@ -3,6 +3,7 @@ name: Jenkins Job Status Check
 on:
   schedule:
     - cron: '*/1 * * * *' # This will check the job status every 1 minute
+  workflow_dispatch: # This allows manual triggering of the workflow
 
 jobs:
   check-jenkins-status:
