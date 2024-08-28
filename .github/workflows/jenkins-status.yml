@@ -19,6 +19,9 @@ jobs:
 
           # Fetch the Jenkins Crumb
           CRUMB=$(curl -s -u $USERNAME:$TOKEN "$JENKINS_URL/crumbIssuer/api/json" | jq -r '.crumb')
+          
+          # Print the crumb for debugging
+          echo "Jenkins Crumb: $CRUMB"
 
           # Get the job status from Jenkins
           RESPONSE=$(curl -s -u $USERNAME:$TOKEN -H "Jenkins-Crumb:$CRUMB" "$JENKINS_URL/job/$JOB_NAME/lastBuild/api/json")
@@ -40,25 +43,25 @@ jobs:
           echo "Job Status: $STATUS"
 
           # Set the job status as an output
-          echo "::set-output name=status::$STATUS"
+          echo "status=$STATUS" >> $GITHUB_ENV
 
       - name: Update STATUS.md with Job Status
         run: |
           # Define badge color based on job status
-          if [ "${{ steps.jenkins-status.outputs.status }}" == "SUCCESS" ]; then
+          if [ "$status" == "SUCCESS" ]; then
             COLOR="green"
-          elif [ "${{ steps.jenkins-status.outputs.status }}" == "FAILURE" ]; then
+          elif [ "$status" == "FAILURE" ]; then
             COLOR="red"
-          elif [ "${{ steps.jenkins-status.outputs.status }}" == "UNSTABLE" ]; then
+          elif [ "$status" == "UNSTABLE" ]; then
             COLOR="yellow"
-          elif [ "${{ steps.jenkins-status.outputs.status }}" == "RUNNING" ]; then
+          elif [ "$status" == "RUNNING" ]; then
             COLOR="blue"
           else
             COLOR="lightgrey"
           fi
 
           # Update STATUS.md with the job status badge
-          echo "![Jenkins Job Status](https://img.shields.io/badge/Jenkins-${{ steps.jenkins-status.outputs.status }}-$COLOR?style=flat-square)" > STATUS.md
+          echo "![Jenkins Job Status](https://img.shields.io/badge/Jenkins-$status-$COLOR?style=flat-square)" > STATUS.md
 
       - name: Commit changes
         run: |
