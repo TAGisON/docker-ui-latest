@@ -2,7 +2,7 @@ name: Jenkins Job Status Check
 
 on:
   schedule:
-    - cron: '*/1 * * * *' # This will check the job status every 1 minutes
+    - cron: '*/1 * * * *' # This will check the job status every 1 minute
 
 jobs:
   check-jenkins-status:
@@ -29,3 +29,26 @@ jobs:
           # Set the job status as an output
           echo "::set-output name=status::$STATUS"
 
+      - name: Update STATUS.md with Job Status
+        run: |
+          # Define badge color based on job status
+          if [ "${{ steps.jenkins-status.outputs.status }}" == "SUCCESS" ]; then
+            COLOR="green"
+          elif [ "${{ steps.jenkins-status.outputs.status }}" == "FAILURE" ]; then
+            COLOR="red"
+          elif [ "${{ steps.jenkins-status.outputs.status }}" == "UNSTABLE" ]; then
+            COLOR="yellow"
+          else
+            COLOR="blue"
+          fi
+
+          # Update STATUS.md with the job status badge
+          echo "![Jenkins Job Status](https://img.shields.io/badge/Jenkins-${{ steps.jenkins-status.outputs.status }}-$COLOR?style=flat-square)" > STATUS.md
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add STATUS.md
+          git commit -m "Update Jenkins job status badge"
+          git push
