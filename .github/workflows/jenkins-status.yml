@@ -2,7 +2,7 @@ name: Jenkins Job Status Check
 
 on:
   schedule:
-    - cron: '*/5 * * * *' # This will check the job status every 5 minutes
+    - cron: '*/1 * * * *' # This will check the job status every 1 minutes
 
 jobs:
   check-jenkins-status:
