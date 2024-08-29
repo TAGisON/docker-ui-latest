@@ -14,9 +14,8 @@ jobs:
         run: |
           JOB_NAME="myfirstjob"
           JENKINS_URL="http://45.79.122.237:8080"
-          USERNAME="${{ secrets.JENKINS_USER }}"
-          TOKEN="${{ secrets.JENKINS_API_TOKEN }}"
-
+          USERNAME="coral"
+          TOKEN="11a6a553d88e61d4bc691f2c8e6c0cad98"
           # Get the job status from Jenkins
           STATUS=$(curl -s -u $USERNAME:$TOKEN $JENKINS_URL/job/$JOB_NAME/lastBuild/api/json | jq -r '.result')
 
