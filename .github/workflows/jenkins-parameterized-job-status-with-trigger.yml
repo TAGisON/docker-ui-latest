@@ -1,4 +1,4 @@
-name: Jenkins Job Status Check with Trigger
+name: Jenkins Parameterized Job Status Check with Trigger
 
 on:
   workflow_dispatch:
