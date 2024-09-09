@@ -30,9 +30,14 @@ jobs:
           DIRECTORY_NAME="${{ github.event.inputs.directory_name }}"
           FILE_NAME="${{ github.event.inputs.file_name }}"
           FILE_CONTENT="${{ github.event.inputs.file_content }}"
+
+          # URL encode parameters
+          DIRECTORY_NAME_ENCODED=$(echo $DIRECTORY_NAME | jq -s -R -r @uri)
+          FILE_NAME_ENCODED=$(echo $FILE_NAME | jq -s -R -r @uri)
+          FILE_CONTENT_ENCODED=$(echo $FILE_CONTENT | jq -s -R -r @uri)
           
           # Trigger the Jenkins parameterized job with inputs
-          curl -X POST -u $USERNAME:$TOKEN "$JENKINS_URL/job/$JOB_NAME/buildWithParameters?DIRECTORY_NAME=$DIRECTORY_NAME&FILE_NAME=$FILE_NAME&FILE_CONTENT=$FILE_CONTENT"
+          curl -X POST -u $USERNAME:$TOKEN "$JENKINS_URL/job/$JOB_NAME/buildWithParameters?DIRECTORY_NAME=$DIRECTORY_NAME_ENCODED&FILE_NAME=$FILE_NAME_ENCODED&FILE_CONTENT=$FILE_CONTENT_ENCODED" -v
           
           echo "Jenkins parameterized job triggered."
 
