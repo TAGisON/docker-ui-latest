@@ -20,6 +20,9 @@ jobs:
   trigger-and-check-jenkins:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Trigger Jenkins Parameterized Job
         id: trigger-jenkins
         run: |
@@ -92,9 +95,11 @@ jobs:
           echo "Last Build Date: ${{ steps.jenkins-status.outputs.build_date }}" >> STATUS.md
 
       - name: Commit and Push STATUS.md
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add STATUS.md
           git commit -m "Update STATUS.md with Jenkins job status"
-          git push
+          git push https://x-access-token:${GH_TOKEN}@github.com/TAGisON/docker-ui-latest.git
