@@ -14,8 +14,15 @@ jobs:
           JENKINS_URL="http://45.79.122.237:8080"
           USERNAME="coral"
           TOKEN="11a6a553d88e61d4bc691f2c8e6c0cad98"
-          # Get the job status from Jenkins
-          STATUS=$(curl -s -u $USERNAME:$TOKEN $JENKINS_URL/job/$JOB_NAME/lastBuild/api/json | jq -r '.result')
+          
+          # Get the job status and additional info from Jenkins
+          BUILD_INFO=$(curl -s -u $USERNAME:$TOKEN $JENKINS_URL/job/$JOB_NAME/lastBuild/api/json)
+          STATUS=$(echo $BUILD_INFO | jq -r '.result')
+          BUILD_NUMBER=$(echo $BUILD_INFO | jq -r '.number')
+          BUILD_TIMESTAMP=$(echo $BUILD_INFO | jq -r '.timestamp')
+
+          # Convert timestamp to human-readable date
+          BUILD_DATE=$(date -d @"$(($BUILD_TIMESTAMP / 1000))" +'%Y-%m-%d %H:%M:%S')
 
           if [ "$STATUS" == "null" ]; then
             echo "Job is running or has never been built."
@@ -23,9 +30,13 @@ jobs:
           fi
 
           echo "Job Status: $STATUS"
+          echo "Build Number: $BUILD_NUMBER"
+          echo "Build Date: $BUILD_DATE"
 
-          # Set the job status as an output
+          # Set outputs
           echo "::set-output name=status::$STATUS"
+          echo "::set-output name=build_number::$BUILD_NUMBER"
+          echo "::set-output name=build_date::$BUILD_DATE"
 
       - name: Update STATUS.md with Job Status
         run: |
@@ -40,5 +51,16 @@ jobs:
             COLOR="blue"
           fi
 
-          # Update STATUS.md with the job status badge
+          # Update STATUS.md with the job status badge, build number, and build date
           echo "![Jenkins Job Status](https://img.shields.io/badge/Jenkins-${{ steps.jenkins-status.outputs.status }}-$COLOR?style=flat-square)" > STATUS.md
+          echo "" >> STATUS.md
+          echo "Last Build Number: ${{ steps.jenkins-status.outputs.build_number }}" >> STATUS.md
+          echo "Last Build Date: ${{ steps.jenkins-status.outputs.build_date }}" >> STATUS.md
+
+      - name: Commit and Push STATUS.md
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add STATUS.md
+          git commit -m "Update STATUS.md with Jenkins job status"
+          git push
