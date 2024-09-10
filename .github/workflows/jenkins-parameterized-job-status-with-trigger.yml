@@ -20,6 +20,9 @@ jobs:
   trigger-and-check-jenkins:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Trigger Jenkins Parameterized Job
         id: trigger-jenkins
         run: |
@@ -68,18 +71,18 @@ jobs:
           echo "Build Date: $BUILD_DATE"
 
           # Set outputs
-          echo "::set-output name=status::$STATUS"
-          echo "::set-output name=build_number::$BUILD_NUMBER"
-          echo "::set-output name=build_date::$BUILD_DATE"
+          echo "status=$STATUS" >> $GITHUB_ENV
+          echo "build_number=$BUILD_NUMBER" >> $GITHUB_ENV
+          echo "build_date=$BUILD_DATE" >> $GITHUB_ENV
 
       - name: Append Job Status to STATUS.md
         run: |
           # Define badge color based on job status
-          if [ "${{ steps.jenkins-status.outputs.status }}" == "SUCCESS" ]; then
+          if [ "$status" == "SUCCESS" ]; then
             COLOR="green"
-          elif [ "${{ steps.jenkins-status.outputs.status }}" == "FAILURE" ]; then
+          elif [ "$status" == "FAILURE" ]; then
             COLOR="red"
-          elif [ "${{ steps.jenkins-status.outputs.status }}" == "UNSTABLE" ]; then
+          elif [ "$status" == "UNSTABLE" ]; then
             COLOR="yellow"
           else
             COLOR="blue"
@@ -87,10 +90,10 @@ jobs:
 
           # Append the new status to STATUS.md with the job status badge, build number, and build date
           {
-            echo "![Jenkins Job Status](https://img.shields.io/badge/Jenkins-${{ steps.jenkins-status.outputs.status }}-$COLOR?style=flat-square)"
+            echo "![Jenkins Job Status](https://img.shields.io/badge/Jenkins-$status-$COLOR?style=flat-square)"
             echo ""
-            echo "Build Number: ${{ steps.jenkins-status.outputs.build_number }}"
-            echo "Build Date: ${{ steps.jenkins-status.outputs.build_date }}"
+            echo "Build Number: $build_number"
+            echo "Build Date: $build_date"
             echo "---"
           } >> STATUS.md
 
